@@ -1,0 +1,27 @@
+
+{
+    "callCrmApp": {
+        "slider" : {
+            "home": {
+                "title": "Sliders",
+                "createLabel": "Thêm mới một Slider",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Slider"
+            },
+            "created": "Một Slider mới được tạo với định danh {{ param }}",
+            "updated": "Một Slider cập nhật với định danh {{ param }}",
+            "deleted": "Một Slider đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Slider {{ id }}?"
+            },
+            "detail": {
+                "title": "Slider"
+            },
+            "name": "Name",
+            "code": "Code",
+            "urlLink": "Url Link",
+            "active": "Active",
+            "createdOn": "Created On",
+            "content": "Content"
+        }
+    }
+}

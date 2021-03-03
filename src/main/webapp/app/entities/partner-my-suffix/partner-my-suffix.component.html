@@ -1,0 +1,70 @@
+<div>
+    <h2>
+        <span jhiTranslate="callCrmApp.partner.home.title">Partners</span>
+        <button class="btn btn-primary float-right jh-create-entity create-partner-my-suffix" [routerLink]="['/', { outlets: { popup: ['partner-my-suffix-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="callCrmApp.partner.home.createLabel">
+            Create new Partner
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="partners">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="fullName"><span jhiTranslate="callCrmApp.partner.fullName">Full Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="isContact"><span jhiTranslate="callCrmApp.partner.isContact">Is Contact</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="mobilePhone"><span jhiTranslate="callCrmApp.partner.mobilePhone">Mobile Phone</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="email"><span jhiTranslate="callCrmApp.partner.email">Email</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="address"><span jhiTranslate="callCrmApp.partner.address">Address</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="userCode"><span jhiTranslate="callCrmApp.partner.userCode">User Code</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdOn"><span jhiTranslate="callCrmApp.partner.createdOn">Created On</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let partner of partners ;trackBy: trackId">
+                <td><a [routerLink]="['../partner-my-suffix', partner.id ]">{{partner.id}}</a></td>
+                <td>{{partner.fullName}}</td>
+                <td>{{partner.isContact}}</td>
+                <td>{{partner.mobilePhone}}</td>
+                <td>{{partner.email}}</td>
+                <td>{{partner.address}}</td>
+                <td>{{partner.userCode}}</td>
+                <td>{{partner.createdOn | date:'mediumDate'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../partner-my-suffix', partner.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'partner-my-suffix/'+ partner.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'partner-my-suffix/'+ partner.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

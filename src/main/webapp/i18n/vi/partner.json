@@ -1,0 +1,28 @@
+
+{
+    "callCrmApp": {
+        "partner" : {
+            "home": {
+                "title": "Partners",
+                "createLabel": "Thêm mới một Partner",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Partner"
+            },
+            "created": "Một Partner mới được tạo với định danh {{ param }}",
+            "updated": "Một Partner cập nhật với định danh {{ param }}",
+            "deleted": "Một Partner đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Partner {{ id }}?"
+            },
+            "detail": {
+                "title": "Partner"
+            },
+            "fullName": "Full Name",
+            "isContact": "Is Contact",
+            "mobilePhone": "Mobile Phone",
+            "email": "Email",
+            "address": "Address",
+            "userCode": "User Code",
+            "createdOn": "Created On"
+        }
+    }
+}

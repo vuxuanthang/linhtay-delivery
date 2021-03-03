@@ -1,0 +1,42 @@
+
+<div *ngIf="menu">
+    <h2><span jhiTranslate="callCrmApp.menu.detail.title">Menu</span> {{menu.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="callCrmApp.menu.name">Name</span></dt>
+        <dd>
+            <span>{{menu.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.menu.model">Model</span></dt>
+        <dd>
+            <span>{{menu.model}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.menu.url">Url</span></dt>
+        <dd>
+            <span>{{menu.url}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.menu.active">Active</span></dt>
+        <dd>
+            <span>{{menu.active}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.menu.createdOn">Created On</span></dt>
+        <dd>
+            <span>{{menu.createdOn | date:'mediumDate'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'menu-my-suffix/'+ menu.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

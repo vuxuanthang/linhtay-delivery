@@ -1,0 +1,58 @@
+
+<div *ngIf="lead">
+    <h2><span jhiTranslate="callCrmApp.lead.detail.title">Lead</span> {{lead.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="callCrmApp.lead.fullName">Full Name</span></dt>
+        <dd>
+            <span>{{lead.fullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.lead.isContact">Is Contact</span></dt>
+        <dd>
+            <span>{{lead.isContact}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.lead.mobilePhone">Mobile Phone</span></dt>
+        <dd>
+            <span>{{lead.mobilePhone}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.lead.email">Email</span></dt>
+        <dd>
+            <span>{{lead.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.lead.address">Address</span></dt>
+        <dd>
+            <span>{{lead.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.lead.city">City</span></dt>
+        <dd>
+            <span>{{lead.city}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.lead.country">Country</span></dt>
+        <dd>
+            <span>{{lead.country}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.lead.userCode">User Code</span></dt>
+        <dd>
+            <span>{{lead.userCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.lead.createdOn">Created On</span></dt>
+        <dd>
+            <span>{{lead.createdOn | date:'mediumDate'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'lead-my-suffix/'+ lead.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

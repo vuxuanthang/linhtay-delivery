@@ -1,0 +1,66 @@
+<div>
+    <h2>
+        <span jhiTranslate="callCrmApp.menu.home.title">Menus</span>
+        <button class="btn btn-primary float-right jh-create-entity create-menu-my-suffix" [routerLink]="['/', { outlets: { popup: ['menu-my-suffix-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="callCrmApp.menu.home.createLabel">
+            Create new Menu
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="menus">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="callCrmApp.menu.name">Name</span></th>
+            <th><span jhiTranslate="callCrmApp.menu.model">Model</span></th>
+            <th><span jhiTranslate="callCrmApp.menu.url">Url</span></th>
+            <th><span jhiTranslate="callCrmApp.menu.active">Active</span></th>
+            <th><span jhiTranslate="callCrmApp.menu.createdOn">Created On</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let menu of menus ;trackBy: trackId">
+                <td><a [routerLink]="['../menu-my-suffix', menu.id ]">{{menu.id}}</a></td>
+                <td>{{menu.name}}</td>
+                <td>{{menu.model}}</td>
+                <td>{{menu.url}}</td>
+                <td>{{menu.active}}</td>
+                <td>{{menu.createdOn | date:'mediumDate'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../menu-my-suffix', menu.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'menu-my-suffix/'+ menu.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'menu-my-suffix/'+ menu.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

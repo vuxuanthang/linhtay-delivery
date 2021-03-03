@@ -1,0 +1,26 @@
+
+{
+    "callCrmApp": {
+        "menu" : {
+            "home": {
+                "title": "Menus",
+                "createLabel": "Thêm mới một Menu",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Menu"
+            },
+            "created": "Một Menu mới được tạo với định danh {{ param }}",
+            "updated": "Một Menu cập nhật với định danh {{ param }}",
+            "deleted": "Một Menu đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Menu {{ id }}?"
+            },
+            "detail": {
+                "title": "Menu"
+            },
+            "name": "Name",
+            "model": "Model",
+            "url": "Url",
+            "active": "Active",
+            "createdOn": "Created On"
+        }
+    }
+}

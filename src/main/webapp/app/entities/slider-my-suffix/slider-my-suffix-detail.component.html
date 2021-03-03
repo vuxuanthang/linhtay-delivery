@@ -1,0 +1,46 @@
+
+<div *ngIf="slider">
+    <h2><span jhiTranslate="callCrmApp.slider.detail.title">Slider</span> {{slider.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="callCrmApp.slider.name">Name</span></dt>
+        <dd>
+            <span>{{slider.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.slider.code">Code</span></dt>
+        <dd>
+            <span>{{slider.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.slider.urlLink">Url Link</span></dt>
+        <dd>
+            <span>{{slider.urlLink}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.slider.active">Active</span></dt>
+        <dd>
+            <span>{{slider.active}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.slider.createdOn">Created On</span></dt>
+        <dd>
+            <span>{{slider.createdOn | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.slider.content">Content</span></dt>
+        <dd>
+            <span>{{slider.content}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'slider-my-suffix/'+ slider.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

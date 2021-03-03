@@ -1,0 +1,26 @@
+
+{
+    "callCrmApp": {
+        "categoryBlock" : {
+            "home": {
+                "title": "Category Blocks",
+                "createLabel": "Thêm mới một Category Block",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Category Block"
+            },
+            "created": "Một Category Block mới được tạo với định danh {{ param }}",
+            "updated": "Một Category Block cập nhật với định danh {{ param }}",
+            "deleted": "Một Category Block đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Category Block {{ id }}?"
+            },
+            "detail": {
+                "title": "Category Block"
+            },
+            "name": "Name",
+            "code": "Code",
+            "urlLink": "Url Link",
+            "active": "Active",
+            "createdOn": "Created On"
+        }
+    }
+}

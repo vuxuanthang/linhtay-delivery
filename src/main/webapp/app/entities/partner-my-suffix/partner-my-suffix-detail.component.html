@@ -1,0 +1,50 @@
+
+<div *ngIf="partner">
+    <h2><span jhiTranslate="callCrmApp.partner.detail.title">Partner</span> {{partner.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="callCrmApp.partner.fullName">Full Name</span></dt>
+        <dd>
+            <span>{{partner.fullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.partner.isContact">Is Contact</span></dt>
+        <dd>
+            <span>{{partner.isContact}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.partner.mobilePhone">Mobile Phone</span></dt>
+        <dd>
+            <span>{{partner.mobilePhone}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.partner.email">Email</span></dt>
+        <dd>
+            <span>{{partner.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.partner.address">Address</span></dt>
+        <dd>
+            <span>{{partner.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.partner.userCode">User Code</span></dt>
+        <dd>
+            <span>{{partner.userCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="callCrmApp.partner.createdOn">Created On</span></dt>
+        <dd>
+            <span>{{partner.createdOn | date:'mediumDate'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'partner-my-suffix/'+ partner.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

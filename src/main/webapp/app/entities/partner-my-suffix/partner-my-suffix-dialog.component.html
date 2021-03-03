@@ -1,0 +1,65 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPartnerLabel" jhiTranslate="callCrmApp.partner.home.createOrEditLabel">Create or edit a Partner</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!partner.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="partner.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="callCrmApp.partner.fullName" for="field_fullName">Full Name</label>
+            <input type="text" class="form-control" name="fullName" id="field_fullName"
+                [(ngModel)]="partner.fullName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="callCrmApp.partner.isContact" for="field_isContact">Is Contact</label>
+            <input type="text" class="form-control" name="isContact" id="field_isContact"
+                [(ngModel)]="partner.isContact" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="callCrmApp.partner.mobilePhone" for="field_mobilePhone">Mobile Phone</label>
+            <input type="text" class="form-control" name="mobilePhone" id="field_mobilePhone"
+                [(ngModel)]="partner.mobilePhone" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="callCrmApp.partner.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="partner.email" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="callCrmApp.partner.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                [(ngModel)]="partner.address" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="callCrmApp.partner.userCode" for="field_userCode">User Code</label>
+            <input type="text" class="form-control" name="userCode" id="field_userCode"
+                [(ngModel)]="partner.userCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="callCrmApp.partner.createdOn" for="field_createdOn">Created On</label>
+            <div class="input-group">
+                <input id="field_createdOn" type="text" class="form-control" name="createdOn" ngbDatepicker  #createdOnDp="ngbDatepicker" [(ngModel)]="partner.createdOn"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="createdOnDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
