@@ -28,9 +28,9 @@ public class CallcrmResource {
     @PostMapping("/createPartner")
     //@CrossOrigin(origins = "http://crm.htsolution.com.vn:9000/vrb")
     public String createSlider(@RequestBody String data) {
-        
+
         CrmService crmService = new CrmService();
-        
+
         String reuslt = crmService.createContact(data);
         return reuslt;
 
@@ -50,38 +50,31 @@ public class CallcrmResource {
     /**
      *
      */
-    @GetMapping("/test")
+    @PostMapping("/test")
     //@CrossOrigin(origins = "http://crm.htsolution.com.vn:9000/vrb")
     public String getTest( HttpServletRequest request) {
         HttpSession session = request.getSession();
-        System.out.println("==== ");
         Enumeration<String> names = request.getHeaderNames();
-        
+        String result = "400";
         CrmService crmService = new CrmService();
         if( crmService.checkAuthen(request.getHeaders("Cookie")) ){
-            crmService.getData();
+            result =  crmService.getStockMoveLineDetail(12504);
         }
-        
-        System.out.println("==== ");
-        //CrmService crmService = new CrmService(request);
-        String result = "400";
-        // if( crmService.checkAuthen(cookie) ){
-        //     result = "200";
-        // }
         return result;
     }
 
     /**
      *
      */
-    @GetMapping("/createPartner")
-    public String createSliderget() {
-        
+    @PostMapping("/getStockMoveLineDetail")
+    public String getStockMoveLineDetail(HttpServletRequest request, @RequestBody Integer id) {
         CrmService crmService = new CrmService();
-        //crmService.login();
-        //String reuslt = crmService.createContact(data);
-        return "reuslt";
+        String result = "400";
+        if( crmService.checkAuthen(request.getHeaders("Cookie")) ){
+            result =  crmService.getStockMoveLineDetail(id);
+        }
+        return result;
     }
 
-    
+
 }

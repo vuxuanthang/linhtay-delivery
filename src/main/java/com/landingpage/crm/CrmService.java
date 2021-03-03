@@ -5,16 +5,14 @@
  */
 package com.landingpage.crm;
 
-import feign.Feign;
-import feign.Headers;
-import feign.RequestInterceptor;
-import feign.RequestLine;
-import feign.RequestTemplate;
+import feign.*;
 import feign.codec.StringDecoder;
 import feign.gson.GsonEncoder;
 import feign.slf4j.Slf4jLogger;
 import java.util.Collection;
 import java.util.Map;
+
+import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.landingpage.crm.CrmParameter;
@@ -45,7 +43,7 @@ public class CrmService {
     // }
 
     public void CrmService(){
-        
+
     }
 
     public  String getCookie() {
@@ -68,8 +66,8 @@ public class CrmService {
         }
         return false;
     }
-    
-        
+
+
     public String login(LoginData user) {
 
         CrmDecoder crmDecoder = new CrmDecoder();
@@ -99,7 +97,6 @@ public class CrmService {
         for (String string : get) {
             if (string.startsWith("JSESSIONID")) {
                 cookie = string;
-                //session.setAttribute("cookie", string);
                 break;
             }
         }
@@ -125,7 +122,26 @@ public class CrmService {
         System.out.println(crmServiceIntf.getData("{\"fields\":[\"contactAddress\",\"emailAddress.address\",\"fixedPhone\",\"fullName\",\"partnerCategory\",\"picture\"],\"sortBy\":null,\"data\":{\"_domain\":\"self.isContact = true\",\"_domainContext\":{}},\"limit\":39,\"offset\":0}"));
 
     }
-    
+
+    public String getStockMoveLineDetail(Integer id) {
+        CrmDecoder crmDecoder = new CrmDecoder();
+        CrmServiceIntf crmServiceIntf = Feign.builder()
+            .decoder(crmDecoder)
+            .requestInterceptor(new RequestInterceptor() {
+                    @Override
+                    public void apply(RequestTemplate template) {
+                        template.header("Cookie", cookie);
+                    }
+                }
+            )
+            .target(
+                CrmServiceIntf.class,
+                crmServer
+            );
+        StockMoveLine stockMoveLine = crmServiceIntf.getStockMoveLineDetail(id,"{\"fields\": [\"partner\",\"product\",\"mauSac\",\"phaiThuTamTinh\", \"tienShip\",\"thanhToan\", \"loaiThanhToan\" ,\"giaoHangSelect\" ,\"statusSelect\", \"tienTraShip\"], \"related\": {\"partner\": [\"mobilePhone\", \"contactAddress\"]}}");
+        return stockMoveLine.getData().toString() ;
+    }
+
     /*public String createLead(Lead lead){
         CrmServiceIntf crmServiceIntf = Feign.builder()
                 .decoder(new StringDecoder())
@@ -140,7 +156,7 @@ public class CrmService {
                         CrmServiceIntf.class,
                         crmServer
                 );
-        
+
         return crmServiceIntf.insertData(cookie);
     }*/
 
@@ -158,7 +174,7 @@ public class CrmService {
                         CrmServiceIntf.class,
                         crmServer
                 );
-        
+
         return crmServiceIntf.insertPartner(data);
     }
 
@@ -176,7 +192,7 @@ public class CrmService {
             "Content-Type: application/json"
         })
         String getData(String dat);
-        
+
         @RequestLine("POST /ws/rest/com.axelor.contact.db.Contact")
         @Headers({
             "Accept: application/json",
@@ -190,7 +206,14 @@ public class CrmService {
             "Content-Type: application/json"
         })
         String insertPartner(String dat);
-        
+
+        @RequestLine("POST /ws/rest/com.axelor.apps.stock.db.StockMoveLine/{id}/fetch")
+        @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+        })
+        StockMoveLine getStockMoveLineDetail(@Param("id") Integer id, String data);
+
     }
 
 }

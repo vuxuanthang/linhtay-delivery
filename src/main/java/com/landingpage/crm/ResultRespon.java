@@ -6,11 +6,13 @@
 package com.landingpage.crm;
 
 
+import feign.gson.GsonDecoder;
+
 /**
  *
  * @author thang
  */
-public class ResultRespon {
+public class ResultRespon extends GsonDecoder {
         private String status;
         private Object data;
         private String offset;
