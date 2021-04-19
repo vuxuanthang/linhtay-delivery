@@ -103,6 +103,24 @@ public class CrmService {
         return cookie;
     }
 
+    public String logout() {
+        CrmDecoder crmDecoder = new CrmDecoder();
+
+        CrmServiceIntf crmServiceIntf = Feign.builder()
+            .logLevel(feign.Logger.Level.FULL)
+            .logger(new Slf4jLogger(this.getClass()))
+            .encoder(new GsonEncoder())
+            .decoder(crmDecoder)
+            //.decoder(new StringDecoder())
+            .target(
+                CrmServiceIntf.class,
+                crmServer
+            );
+
+        String result = crmServiceIntf.logout();
+        return  result;
+    }
+
     public void getData() {
 
         CrmServiceIntf crmServiceIntf = Feign.builder()
@@ -123,7 +141,7 @@ public class CrmService {
 
     }
 
-    public String getStockMoveLineDetail(Integer id) {
+    public StockMoveLine getStockMoveLineDetail(Integer id) {
         CrmDecoder crmDecoder = new CrmDecoder();
         CrmServiceIntf crmServiceIntf = Feign.builder()
             .decoder(crmDecoder)
@@ -138,44 +156,45 @@ public class CrmService {
                 CrmServiceIntf.class,
                 crmServer
             );
-        StockMoveLine stockMoveLine = crmServiceIntf.getStockMoveLineDetail(id,"{\"fields\": [\"partner\",\"product\",\"mauSac\",\"phaiThuTamTinh\", \"tienShip\",\"thanhToan\", \"loaiThanhToan\" ,\"giaoHangSelect\" ,\"statusSelect\", \"tienTraShip\"], \"related\": {\"partner\": [\"mobilePhone\", \"contactAddress\"]}}");
-        return stockMoveLine.getData().toString() ;
+        StockMoveLine result = new StockMoveLine();
+        try {
+            StockMoveLineRespon stockMoveLine = crmServiceIntf.getStockMoveLineDetail(id,"{\"fields\": [\"partner\",\"product\",\"mauSac\",\"phaiThuTamTinh\", \"tienShip\",\"thanhToan\", \"loaiThanhToan\" ,\"giaoHangSelect\" ,\"statusSelect\", \"tienTraShip\"], \"related\": {\"partner\": [\"mobilePhone\", \"contactAddress\"]}}");
+
+            if (stockMoveLine.getData().length > 0) {
+                result = stockMoveLine.getData()[0];
+            }
+        } catch (FeignException feignException){
+            System.out.println(feignException.getMessage());
+        }
+        return result ;
     }
 
-    /*public String createLead(Lead lead){
+    public User getUser(Integer id) {
+        CrmDecoder crmDecoder = new CrmDecoder();
         CrmServiceIntf crmServiceIntf = Feign.builder()
-                .decoder(new StringDecoder())
-                .requestInterceptor(new RequestInterceptor() {
-                    @Override
-                    public void apply(RequestTemplate template) {
-                        template.header("Cookie", cookie);
-                    }
-                }
-                )
-                .target(
-                        CrmServiceIntf.class,
-                        crmServer
-                );
+            .decoder(crmDecoder)
+            .requestInterceptor(new RequestInterceptor() {
+                                    @Override
+                                    public void apply(RequestTemplate template) {
+                                        template.header("Cookie", cookie);
+                                    }
+                                }
+            )
+            .target(
+                CrmServiceIntf.class,
+                crmServer
+            );
+        User result = new User();
+        try {
+            UserRespon userRespon = crmServiceIntf.getUser(id,"{\"fields\": [\"partner\",\"product\",\"mauSac\",\"phaiThuTamTinh\", \"tienShip\",\"thanhToan\", \"loaiThanhToan\" ,\"giaoHangSelect\" ,\"statusSelect\", \"tienTraShip\"], \"related\": {\"partner\": [\"mobilePhone\", \"contactAddress\"]}}");
 
-        return crmServiceIntf.insertData(cookie);
-    }*/
-
-    public String createContact(String data){
-        CrmServiceIntf crmServiceIntf = Feign.builder()
-                .decoder(new StringDecoder())
-                .requestInterceptor(new RequestInterceptor() {
-                    @Override
-                    public void apply(RequestTemplate template) {
-                        template.header("Cookie", cookie);
-                    }
-                }
-                )
-                .target(
-                        CrmServiceIntf.class,
-                        crmServer
-                );
-
-        return crmServiceIntf.insertPartner(data);
+            if (userRespon.getData().length > 0) {
+                result = userRespon.getData()[0];
+            }
+        } catch (FeignException feignException){
+            System.out.println(feignException.getMessage());
+        }
+        return result ;
     }
 
     public interface CrmServiceIntf {
@@ -212,7 +231,17 @@ public class CrmService {
             "Accept: application/json",
             "Content-Type: application/json"
         })
-        StockMoveLine getStockMoveLineDetail(@Param("id") Integer id, String data);
+        StockMoveLineRespon getStockMoveLineDetail(@Param("id") Integer id, String data);
+
+        @RequestLine("POST /ws/rest/com.axelor.auth.db.User/{id}/fetch")
+        @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+        })
+        UserRespon getUser(@Param("id") Integer id, String data);
+
+        @RequestLine("GET /logout")
+        String logout();
 
     }
 

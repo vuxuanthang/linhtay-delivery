@@ -5,20 +5,13 @@
  */
 package com.landingpage.crm;
 
-import feign.Response;
-import feign.gson.GsonDecoder;
-
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.security.PrivateKey;
-import java.util.Collection;
-import java.util.Map;
 
 /**
  *
  * @author thang
  */
-public class StockMoveLine {
+public class User {
 
     private Integer id;
     private BigDecimal thanhToan;
